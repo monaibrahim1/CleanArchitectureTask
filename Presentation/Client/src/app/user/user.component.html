@@ -1,0 +1,164 @@
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label for="firstName" class="form-label">First Name</label>
+    <input
+      id="firstName"
+      type="text"
+      formControlName="firstName"
+      autocomplete="off"
+    />
+    <div *ngIf="firstName.invalid && firstName.touched">
+      <p *ngIf="firstName.errors!['required']">First Name is required</p>
+      <p *ngIf="firstName.errors!['maxlength']">Max First Name length is 20</p>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="middleName" class="form-label">Middle Name</label>
+    <input
+      id="middleName"
+      type="text"
+      formControlName="middleName"
+      autocomplete="off"
+    />
+    <div *ngIf="middleName.invalid">
+      <p *ngIf="middleName.errors!['maxlength']">
+        Max Middle Name length is 40
+      </p>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="lastName">Last Name</label>
+    <input
+      id="lastName"
+      type="text"
+      formControlName="lastName"
+      autocomplete="off"
+    />
+    <div *ngIf="lastName.invalid && lastName.touched">
+      <div *ngIf="lastName.errors!['required']">Last name is required</div>
+      <div *ngIf="lastName.errors!['maxlength']">
+        Max Last name length is 20
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="birthDate">BirthDate</label>
+    <input
+      id="birthDate"
+      type="date"
+      formControlName="birthDate"
+      autocomplete="off"
+    />
+    <div *ngIf="birthDate.invalid && birthDate.touched">
+      <div *ngIf="birthDate.errors!['required']">birthDate is required</div>
+      <div *ngIf="birthDate.errors!['minimumAge']">
+        minimum age is {{ birthDate.errors!["minimumAge"].value }} years
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="mobileNumber">Mobile Number</label>
+    <input
+      id="mobileNumber"
+      type="text"
+      formControlName="mobileNumber"
+      autocomplete="off"
+    />
+    <div *ngIf="mobileNumber.invalid && mobileNumber.touched">
+      <div *ngIf="mobileNumber.errors!['required']">
+        Mobile number is required
+      </div>
+      <div *ngIf="mobileNumber.errors!['pattern']">
+        Mobile number pattern like +2011111111111
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="email">Email</label>
+    <input id="email" type="text" formControlName="email" autocomplete="off" />
+    <div *ngIf="email.invalid && email.touched">
+      <div *ngIf="email.errors!['required']">Email is required</div>
+      <div *ngIf="email.errors!['email']">Valid email address</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="hasAddress">Have Address </label>
+    <input
+      id="hasAddress"
+      type="checkbox"
+      formControlName="hasAddress"
+    />
+  </div>
+  <div *ngIf="hasAddress.value">
+    <div class="mb-3">
+      <label for="goverId"> Governorate:</label>
+      <select
+        id="goverId"
+        formControlName="goverId"
+        (change)="OnGovernorateChange($event)"
+      >
+        <option
+          *ngFor="let governorate of governorateList"
+          [value]="governorate.id"
+        >
+          {{ governorate.name }}
+        </option>
+      </select>
+      <div *ngIf="goverId.invalid && goverId.touched">Governorate is required</div>
+
+    </div>
+
+    <div class="mb-3">
+      <label for="cityId"> City:</label>
+      <select id="cityId" formControlName="cityId">
+        <option *ngFor="let city of cityList" [value]="city.id">
+          {{ city.name }}
+        </option>
+      </select>
+      <div *ngIf="cityId.invalid && cityId.touched">City name is required</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="street"> Street:</label>
+      <input id="street" formControlName="street" type="text" />
+      <div *ngIf="street.invalid && street.touched">
+        <div *ngIf="street.errors!['required']">street is required</div>
+        <div *ngIf="street.errors!['maxlength']">
+          Maximum street length is 200
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="buildingNumber"> Building No:</label>
+      <input id="buildingNumber" type="text" formControlName="buildingNumber" />
+      <div *ngIf="buildingNumber.invalid && buildingNumber.touched">
+        building number is required
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="flatNumber"> Flat No:</label>
+      <input id="flatNumber" type="text" formControlName="flatNumber" />
+      <div *ngIf="flatNumber.invalid && flatNumber.touched">
+        Flat number is required
+      </div>
+    </div>
+  </div>
+
+  <div class="col-auto">
+    <button
+      type="submit"
+      class="btn btn-primary mb-3"
+      [disabled]="registrationForm.invalid"
+    >
+      Submit
+    </button>
+  </div>
+</form>

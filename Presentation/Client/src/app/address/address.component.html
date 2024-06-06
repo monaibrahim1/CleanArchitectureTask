@@ -1,0 +1,52 @@
+<form [formGroup]="addressForm">
+  <div class="mb-3">
+    <label for="goverId"> Governorate:</label>
+    <select
+      id="goverId"
+      formControlName="goverId"
+      (change)="OnGovernorateChange($event)"
+    >
+      <option
+        *ngFor="let governorate of governorateList"
+        [value]="governorate.id"
+      >
+        {{ governorate.name }}
+      </option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="cityId"> City:</label>
+    <select id="cityId" formControlName="cityId">
+      <option *ngFor="let city of cityList" [value]="city.id">
+        {{ city.name }}
+      </option>
+    </select>
+    <div *ngIf="cityId.invalid && cityId.touched">Governorate is required</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="street"> Street:</label>
+    <input id="street" formControlName="street" type="text" />
+    <div *ngIf="cityId.invalid && cityId.touched">
+      <div *ngIf="cityId.errors!['required']">street is required</div>
+      <div *ngIf="cityId.errors!['maxlength']">
+        Maximum street length is 200
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="buildingNumber"> Building No:</label>
+    <input id="buildingNumber" type="text" formControlName="buildingNumber" />
+    <div *ngIf="cityId.invalid && cityId.touched">
+      building number is required
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="flatNumber"> Flat No:</label>
+    <input id="flatNumber" type="text" formControlName="flatNumber" />
+    <div *ngIf="cityId.invalid && cityId.touched">Flat number is required</div>
+  </div>
+</form>
